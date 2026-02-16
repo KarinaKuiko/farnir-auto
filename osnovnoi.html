@@ -741,12 +741,17 @@
 
         .vacancies-wrapper {
             width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .vacancies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 25px;
+            max-width: 1200px;
+            width: 100%;
         }
 
         /* Карточка вакансии */
@@ -757,9 +762,14 @@
             box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
             border: 1px solid #eef2f7;
-            height: 100%;
             display: flex;
             flex-direction: column;
+            width: calc(33.333% - 17px);
+            min-width: 300px;
+            max-width: 380px;
+            /* Используем flexbox для равномерного распределения */
+            height: 100%;
+            align-self: stretch;
         }
 
         .vacancy-card:hover {
@@ -780,6 +790,8 @@
             margin: 0 0 10px 0;
             line-height: 1.4;
             font-weight: 600;
+            /* Убираем ограничение строк */
+            word-wrap: break-word;
         }
 
         .vacancy-salary {
@@ -827,10 +839,16 @@
         .vacancy-details {
             margin-top: 15px;
             flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .detail-section {
             margin-bottom: 18px;
+            /* Равномерное распределение пространства */
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .detail-section:last-child {
@@ -845,6 +863,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-shrink: 0;
         }
 
         .detail-title::before {
@@ -862,11 +881,71 @@
             line-height: 1.5;
             margin: 0;
             padding-left: 14px;
+            /* Убираем ограничение строк - текст показывается полностью */
+            word-wrap: break-word;
+            /* Добавляем возможность прокрутки если текста очень много */
+            overflow-y: auto;
+            max-height: 200px;
+            /* Скрываем скроллбар для Chrome, Safari и Opera */
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-blue) #f0f0f0;
+        }
+
+        /* Стилизация скроллбара для WebKit браузеров */
+        .detail-text::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .detail-text::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 3px;
+        }
+
+        .detail-text::-webkit-scrollbar-thumb {
+            background: var(--color-blue);
+            border-radius: 3px;
+        }
+
+        .detail-text::-webkit-scrollbar-thumb:hover {
+            background: var(--color-burgundy);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1024px) {
+            .vacancy-card {
+                width: calc(50% - 13px);
+            }
+
+            .detail-text {
+                max-height: 180px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .vacancies-section {
+                padding: 50px 0;
+            }
+
+            .vacancies-title {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+
+            .vacancy-card {
+                width: 100%;
+                max-width: 500px;
+            }
+
+            .detail-text {
+                max-height: none;
+                /* Убираем ограничение высоты на мобильных */
+                overflow-y: visible;
+            }
         }
 
         /* Сообщение об отсутствии вакансий */
         .no-vacancies {
-            grid-column: 1 / -1;
+            width: 100%;
             text-align: center;
             padding: 60px 20px;
             background: white;
@@ -901,35 +980,18 @@
             margin-top: 20px !important;
         }
 
-        /* Адаптивность */
-        @media (max-width: 1024px) {
-            .vacancies-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 20px;
-            }
+        .contact-email a {
+            color: var(--color-blue);
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
 
-        @media (max-width: 768px) {
-            .vacancies-section {
-                padding: 50px 0;
-            }
-
-            .vacancies-title {
-                font-size: 1.8rem;
-                margin-bottom: 30px;
-            }
-
-            .vacancies-grid {
-                grid-template-columns: 1fr;
-                max-width: 500px;
-                margin: 0 auto;
-            }
-
-            .vacancy-card {
-                padding: 20px;
-            }
+        .contact-email a:hover {
+            color: var(--color-burgundy);
+            text-decoration: underline;
         }
 
+        /* Адаптивность для мобильных */
         @media (max-width: 480px) {
             .container {
                 padding: 0 15px;
@@ -1517,7 +1579,7 @@
                     "Диагностика, техническое обслуживание и ремонт рулевого управления грузовых автомобилей: замена насоса ГУР, гидроцилиндра рулевого управления, гидравлических шлангов привода рулевого управления. Замена и ремонт рулевого механизма, карданных валов привода рулевого управления, замена и восстановление наконечников рулевых тяг",
                     "Диагностика, техническое обслуживание и ремонт тормозной системы грузовых автомобилей: замена тормозных колодок дискового и барабанного тормоза, тормозных дисков, тормозных барабанов, накладок тормозных колодок, ремкомплекта тормозного вала, регулировочных рычагов. Ремонт суппортов и пневматической системы привода тормозов. Регулировка тормозных механизмов, проточка тормозных барабанов",
                     "Диагностика, техническое обслуживание и ремонт седельно-сцепного и тягово-сцепного устройства грузового автомобиля",
-                    "Диагностика электронных систем управления грузовых автомобилей, ремонт электрооборудования",
+                    "Диагностика электронных систем управления грузовых автомобилей, ремонт электрооборудования"
                 ],
                 brands: null
             },
@@ -1528,10 +1590,9 @@
                 description: "Широкий спектр услуг по ремонту и техническому обслуживанию прицепов и полуприцепов всех типов.",
                 details: [
                     "Диагностика, техническое обслуживание и ремонт прицепов и полуприцепов <b>Schmitz, Kögel, Krone, Koluman, Wielton. Работаем с осями SAF, BPW, JOST, Gigant, ROR, Knott, ТОНАР</b>",
-                    "Диагностика и ремонт тормозной системы",
-                    "Ремонт пневмосистем",
-                    "Ремонт и техническое обслуживание тягово-седельных и тягово-сцепных устройств",
-                    "Диагностика и ремонт электронных систем и световых приборов"
+                    "Диагностика, техническое обслуживание и ремонт ходовой части: замена шкворней, ступичных подшипников, втулок стабилизатора подвески, восстановление стабилизатора подвески, замена и ремонт рессор. Замена пневморессоры, амортизаторов, сайлентблоков. Замена и восстановление реактивных штанг. Ремонт балансиров",
+                    "Диагностика, техническое обслуживание и ремонт тормозной системы грузовых автомобилей: замена тормозных колодок дискового и барабанного тормоза, тормозных дисков, тормозных барабанов, накладок тормозных колодок, ремкомплекта тормозного вала, регулировочных рычагов. Ремонт суппортов и пневматической системы привода тормозов. Регулировка тормозных механизмов, проточка тормозных барабанов",
+                    "Диагностика электронных систем управления грузовых автомобилей, ремонт электрооборудования"
                 ],
                 brands: null
             },
@@ -1805,46 +1866,46 @@
     <script>
         // Данные для вакансий
         const vacanciesData = [
-            // {
-            //     id: 1,
-            //     title: "Слесарь по ремонту автомобилей",
-            //     salary: "от 2 500 до 4 500 руб.",
-            //     experience: "от 1 года",
-            //     responsibilities: "Диагностика и ремонт грузовых автомобилей, ТО двигателей и КПП",
-            //     requirements: "Образование, опыт с грузовой техникой, ответственность",
-            //     employment: "Полная занятость",
-            //     isActive: true
-            // },
-            // {
-            //     id: 2,
-            //     title: "Электрик-автомеханик",
-            //     salary: "от 2 800 до 4 200 руб.",
-            //     experience: "от 2 лет",
-            //     responsibilities: "Ремонт электрооборудования, диагностика бортовых сетей",
-            //     requirements: "Образование техник-электрик, знание автоэлектрики",
-            //     employment: "Полная занятость",
-            //     isActive: true
-            // },
-            // {
-            //     id: 3,
-            //     title: "Мастер-приемщик",
-            //     salary: "от 2 000 руб. + бонусы",
-            //     experience: "от 6 месяцев",
-            //     responsibilities: "Прием авто в ремонт, консультирование, составление заказ-нарядов",
-            //     requirements: "Коммуникабельность, знание основ автоустройства",
-            //     employment: "Сменный график",
-            //     isActive: true
-            // },
-            // {
-            //     id: 4,
-            //     title: "Менеджер по продажам запчастей",
-            //     salary: "от 1 800 руб. + %",
-            //     experience: "от 1 года",
-            //     responsibilities: "Подбор и продажа запчастей, работа с клиентами",
-            //     requirements: "Опыт продаж в автобизнесе, знание ассортимента",
-            //     employment: "Полная занятость",
-            //     isActive: true
-            // },
+            {
+                id: 1,
+                title: "Слесарь по ремонту грузовых автомобилей",
+                salary: "от 2 000 до 6 000 руб.",
+                experience: "от 1 года",
+                // responsibilities: "Диагностика и ремонт грузовых автомобилей, ТО двигателей и КПП",
+                requirements: "Выполнение в установленные сроки и с надлежащим качеством заданного объема производственных заданий по техническому обслуживанию и ремонту автобусов, грузовых автомобилей и прицепного состава.",
+                employment: "5/2 с 9:00 до 18:00 или  2/2, с 9:00 до 21:00",
+                isActive: true
+            },
+           /* {
+                id: 2,
+                title: "Электрик-автомеханик",
+                salary: "от 2 800 до 4 200 руб.",
+                experience: "от 2 лет",
+                responsibilities: "Ремонт электрооборудования, диагностика бортовых сетей",
+                requirements: "Образование техник-электрик, знание автоэлектрики",
+                employment: "Полная занятость",
+                isActive: true
+            },
+            {
+                id: 3,
+                title: "Мастер-приемщик",
+                salary: "от 2 000 руб. + бонусы",
+                experience: "от 6 месяцев",
+                responsibilities: "Прием авто в ремонт, консультирование, составление заказ-нарядов",
+                requirements: "Коммуникабельность, знание основ автоустройства",
+                employment: "Сменный график",
+                isActive: true
+            },
+             {
+                id: 4,
+                title: "Менеджер по продажам запчастей",
+                salary: "от 1 800 руб. + %",
+                experience: "от 1 года",
+                responsibilities: "Подбор и продажа запчастей, работа с клиентами",
+                requirements: "Опыт продаж в автобизнесе, знание ассортимента",
+                employment: "Полная занятость",
+                isActive: true
+            }, */
             // {
             //     id: 5,
             //     title: "Сварщик",
@@ -1900,17 +1961,7 @@
             </div>
             
             <div class="vacancy-card-body">
-                <div class="vacancy-info-row">
-                    <span class="info-label">
-                        <svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                        Опыт:
-                    </span>
-                    <span class="info-value">${vacancy.experience}</span>
-                </div>
-                
+                            
                 <div class="vacancy-info-row">
                     <span class="info-label">
                         <svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1923,10 +1974,7 @@
                 </div>
                 
                 <div class="vacancy-details">
-                    <div class="detail-section">
-                        <h4 class="detail-title">Обязанности:</h4>
-                        <p class="detail-text">${vacancy.responsibilities}</p>
-                    </div>
+                    
                     
                     <div class="detail-section">
                         <h4 class="detail-title">Требования:</h4>
@@ -1936,7 +1984,20 @@
             </div>
         </div>
     `).join('');
-
+// <div class="detail-section">
+//                         <h4 class="detail-title">Обязанности:</h4>
+//                         <p class="detail-text">${vacancy.responsibilities}</p>
+//                     </div>
+// <div class="vacancy-info-row">
+//                     <span class="info-label">
+//                         <svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+//                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+//                             <circle cx="12" cy="7" r="4"></circle>
+//                         </svg>
+//                         Опыт:
+//                     </span>
+//                     <span class="info-value">${vacancy.experience}</span>
+//                 </div>
             container.innerHTML = vacanciesHTML;
         }
 
