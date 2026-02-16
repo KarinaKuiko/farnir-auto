@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ФАРНИРАВТО — СТО Грузовой Техники</title>
+    <link rel="icon" type="image/x-icon"
+        href="https://raw.githubusercontent.com/KarinaKuiko/farnir-auto/main/favicon-32x32.ico?v=2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Roboto+Condensed:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. ПЕРЕМЕННЫЕ И БАЗА --- */
+        :root {
+            --color-blue: #091F49;
+            --color-light: #DCE0E5;
+            --color-burgundy: #440D19;
+            --color-black: #0B0A0A;
+            --font-main: 'Montserrat', sans-serif;
+            --font-condensed: 'Roboto Condensed', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-black);
+            background-color: var(--color-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- 2. ТИПОГРАФИКА И КОМПОНЕНТЫ --- */
+        h1,
+        h2,
+        h3 {
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--color-burgundy);
+            color: #fff;
+            padding: 15px 35px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 2px solid var(--color-burgundy);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--color-burgundy);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+        }
+
+        .btn-outline:hover {
+            background-color: #fff;
+            color: var(--color-black);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--color-blue);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--color-burgundy);
+            margin: 15px auto 0;
+        }
+
+        /* --- 3. ХЕДЕР --- */
+        header {
+            background-color: var(--color-blue);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--color-light);
+            font-weight: 400;
+        }
+
+        .header-contacts {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .phone {
+            color: #fff;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* --- 4. HERO SECTION (Первый экран) --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(9, 31, 73, 0.85), rgba(9, 31, 73, 0.7)),
+                url('https://raw.githubusercontent.com/KarinaKuiko/farnir-auto/main/background.png');
+            /* Фото грузовика */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: var(--color-light);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- 5. УСЛУГИ (Сетка) --- */
+        /* --- 5. УСЛУГИ (Аккордеоны с вертикальным расположением) --- */
+        .services {
+            padding: 80px 0;
+            background-color: var(--color-light);
+            position: relative;
+        }
+
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        /* Левая часть - активная карточка */
+        .service-main {
+            flex: 1;
+            min-width: 300px;
+            background: #fff;
+            border-bottom: 4px solid var(--color-blue);
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .service-main.active {
+            border-bottom-color: var(--color-burgundy);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-main-header {
+            display: flex;
+            align-items: center;
+            padding: 30px;
+            cursor: pointer;
+            min-height: 180px;
+        }
+
+        .service-main-icon {
+            width: 60px;
+            height: 60px;
+            margin-right: 20px;
+            flex-shrink: 0;
+            color: var(--color-burgundy);
+            filter: brightness(0) saturate(100%) invert(9%) sepia(49%) saturate(3871%) hue-rotate(319deg) brightness(89%) contrast(101%);
+        }
+
+        .service-main-title-container {
+            flex-grow: 1;
+        }
+
+        .service-main-title {
+            font-size: 1.5rem;
+            color: var(--color-blue);
+            margin-bottom: 8px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .service-main-status {
+            font-family: var(--font-condensed);
+            font-style: italic;
+            color: var(--color-burgundy);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .service-main-arrow {
+            font-size: 1.5rem;
+            color: var(--color-burgundy);
+            transition: transform 0.4s ease;
+            margin-left: 15px;
+            flex-shrink: 0;
+        }
+
+        .service-main.active .service-main-arrow {
+            transform: rotate(180deg);
+        }
+
+        .service-main-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            padding: 0 30px;
+        }
+
+        .service-main.active .service-main-content {
+            max-height: 2000px;
+            opacity: 1;
+            padding: 0 30px 30px;
+        }
+
+        /* Правая часть - вертикальные карточки */
+        .service-sidebar {
+            width: 280px;
+            /* Фиксированная ширина для вертикального расположения */
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .service-sidebar-item {
+            background: #fff;
+            border-bottom: 4px solid var(--color-blue);
+            transition: all 0.3s ease;
+            padding: 25px;
+            cursor: pointer;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .service-sidebar-item:hover {
+            border-bottom-color: var(--color-burgundy);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-sidebar-item.active {
+            border-bottom-color: var(--color-burgundy);
+            background-color: #f9f9f9;
+        }
+
+        .service-sidebar-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 12px;
+            color: var(--color-burgundy);
+            filter: brightness(0) saturate(100%) invert(9%) sepia(49%) saturate(3871%) hue-rotate(319deg) brightness(89%) contrast(101%);
+        }
+
+        .service-sidebar-title {
+            font-size: 1.2rem;
+            color: var(--color-blue);
+            margin-bottom: 5px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .service-sidebar-status {
+            font-family: var(--font-condensed);
+            font-style: italic;
+            color: var(--color-burgundy);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Контент активной карточки (широкий) */
+        .service-main-content {
+            width: 100%;
+        }
+
+        .service-description {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            max-width: 800px;
+        }
+
+        .service-details {
+            background: var(--color-light);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            max-width: 800px;
+        }
+
+        .details-title {
+            font-weight: 700;
+            color: var(--color-blue);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--color-burgundy);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .details-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 15px;
+        }
+
+        .detail-item {
+            position: relative;
+            padding-left: 22px;
+            font-size: 0.95rem;
+            color: #333;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .detail-item::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--color-burgundy);
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .detail-item b {
+            color: var(--color-blue);
+            font-weight: 700;
+        }
+
+        /* Стили для блока брендов */
+        .brands-section {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #ddd;
+            max-width: 800px;
+        }
+
+        .brands-title {
+            font-weight: 700;
+            color: var(--color-blue);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .brands-tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .brand-tag {
+            background: #fff;
+            color: var(--color-blue);
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .brand-tag:hover {
+            background-color: var(--color-blue);
+            color: #fff;
+            border-color: var(--color-blue);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1100px) {
+            .services-container {
+                flex-direction: column;
+            }
+
+            .service-sidebar {
+                width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .service-sidebar-item {
+                width: calc(50% - 10px);
+                min-height: 160px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .service-sidebar {
+                flex-direction: column;
+            }
+
+            .service-sidebar-item {
+                width: 100%;
+            }
+
+            .service-main-header {
+                padding: 20px;
+                min-height: 160px;
+            }
+
+            .service-main-icon {
+                width: 50px;
+                height: 50px;
+                margin-right: 15px;
+            }
+
+            .service-main-content {
+                padding: 0 20px;
+            }
+
+            .service-main.active .service-main-content {
+                padding: 0 20px 20px;
+            }
+
+            .service-details {
+                padding: 20px;
+            }
+
+            .details-list {
+                grid-template-columns: 1fr;
+            }
+
+            .service-main-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .service-sidebar-item {
+                padding: 20px;
+                min-height: 140px;
+            }
+
+            .service-sidebar-icon {
+                width: 35px;
+                height: 35px;
+            }
+
+            .service-sidebar-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* --- 6. ПРИЦЕПЫ (Триколор акцент) --- */
+        .trailers {
+            background-color: var(--color-blue);
+            color: var(--color-light);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Декор линия */
+        .trailers::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: repeating-linear-gradient(45deg,
+                    var(--color-burgundy),
+                    var(--color-burgundy) 20px,
+                    var(--color-black) 20px,
+                    var(--color-black) 40px);
+        }
+
+        .trailers-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #fff;
+        }
+
+        .trailers-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            position: relative;
+        }
+
+        /* Вертикальный разделитель */
+        .trailers-content::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--color-burgundy);
+            transform: translateX(-50%);
+        }
+
+        .trailer-group {
+            margin-bottom: 30px;
+        }
+
+        .trailer-head {
+            color: #fff;
+            font-size: 1.3rem;
+            border-left: 4px solid var(--color-burgundy);
+            padding-left: 15px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .trailer-head span {
+            color: #aaa;
+            /* цвет цитаты */
+            font-size: 1rem;
+            display: block;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .trailer-list li {
+            margin-bottom: 10px;
+            color: var(--color-light);
+            opacity: 0.9;
+        }
+
+        /* --- 7. ФОРМА (CTA) --- */
+        .cta-section {
+            background-color: #fff;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-input {
+            padding: 15px;
+            border: 2px solid var(--color-light);
+            background: #f9f9f9;
+            font-family: var(--font-main);
+            font-size: 16px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-blue);
+        }
+
+        /* --- 8. ФУТЕР --- */
+        footer {
+            background-color: #05122b;
+            /* Еще темнее синий */
+            color: #fff;
+            padding: 50px 0 20px;
+            font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--color-light);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--color-burgundy);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .footer-contacts li {
+            margin-bottom: 10px;
+        }
+
+        .footer-contacts i {
+            color: var(--color-burgundy);
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .footer-contacts a {
+            color: inherit;
+            /* или нужный цвет */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contacts a:hover {
+            /* color: var(--color-burgundy); цвет при наведении */
+            text-decoration: underline;
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            color: #777;
+        }
+
+        /* --- АНИМАЦИИ --- */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- МОБИЛЬНАЯ АДАПТАЦИЯ --- */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .header-contacts {
+                display: none;
+            }
+
+            /* Скрываем телефон в шапке на моб, оставляем лого */
+            .header-inner {
+                justify-content: center;
+            }
+
+            .trailers-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .trailers-content::after {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Стили для блока вакансий */
+        .vacancies-section {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .vacancies-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .vacancies-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--color-blue);
+            border-radius: 2px;
+        }
+
+        .vacancies-wrapper {
+            width: 100%;
+        }
+
+        .vacancies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        /* Карточка вакансии */
+        .vacancy-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #eef2f7;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .vacancy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            border-color: var(--color-blue);
+        }
+
+        .vacancy-card-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f7ff;
+        }
+
+        .vacancy-name {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        .vacancy-salary {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #e74c3c;
+            display: inline-block;
+            background: #fff5f5;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        .vacancy-card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .vacancy-info-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .info-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #555;
+            min-width: 100px;
+            font-weight: 500;
+        }
+
+        .info-icon {
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            color: #333;
+            font-weight: 500;
+            margin-left: 5px;
+        }
+
+        .vacancy-details {
+            margin-top: 15px;
+            flex: 1;
+        }
+
+        .detail-section {
+            margin-bottom: 18px;
+        }
+
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-title {
+            font-size: 1rem;
+            color: var(--color-blue);
+            margin: 0 0 8px 0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-title::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--color-blue);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .detail-text {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+            margin: 0;
+            padding-left: 14px;
+        }
+
+        /* Сообщение об отсутствии вакансий */
+        .no-vacancies {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            border: 2px dashed #e0e6ed;
+        }
+
+        .vacancy-icon {
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .no-vacancies h3 {
+            color: #7f8c8d;
+            font-size: 1.5rem;
+            margin: 0 0 15px 0;
+            font-weight: 600;
+        }
+
+        .no-vacancies p {
+            color: #95a5a6;
+            font-size: 1rem;
+            margin: 0 0 10px 0;
+            line-height: 1.5;
+        }
+
+        .contact-email {
+            color: var(--color-blue) !important;
+            font-weight: 600;
+            font-size: 1.1rem !important;
+            margin-top: 20px !important;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1024px) {
+            .vacancies-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .vacancies-section {
+                padding: 50px 0;
+            }
+
+            .vacancies-title {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+
+            .vacancies-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .vacancy-card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .vacancies-title {
+                font-size: 1.6rem;
+            }
+
+            .vacancy-name {
+                font-size: 1.1rem;
+            }
+
+            .vacancy-salary {
+                font-size: 1.2rem;
+                padding: 5px 10px;
+            }
+
+            .vacancy-info-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+                margin-bottom: 15px;
+            }
+
+            .info-label {
+                min-width: auto;
+            }
+
+            .info-value {
+                margin-left: 20px;
+            }
+        }
+
+        /* Стили для формы запроса запчастей */
+        .parts-form-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            border-left: 4px solid var(--color-blue);
+        }
+
+        .form-title {
+            font-size: 1.3rem;
+            color: var(--color-blue);
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-family: var(--font-main);
+        }
+
+        .form-description {
+            color: var(--color-black);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            font-family: var(--font-main);
+        }
+
+        .parts-form {
+            width: 100%;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+                margin-bottom: 15px;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--color-blue);
+            font-weight: 500;
+            font-size: 0.95rem;
+            font-family: var(--font-main);
+        }
+
+        .form-group label[for] {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group label[for]:after {
+            content: '*';
+            color: var(--color-burgundy);
+            margin-left: 4px;
+            display: inline-block;
+        }
+
+        .form-group label[for="agreement"]:after {
+            display: none;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--color-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: var(--font-main);
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+            color: var(--color-black);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-blue);
+            box-shadow: 0 0 0 3px rgba(9, 31, 73, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #aaa;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--color-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: var(--font-main);
+            resize: vertical;
+            min-height: 120px;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+            color: var(--color-black);
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-blue);
+            box-shadow: 0 0 0 3px rgba(9, 31, 73, 0.1);
+        }
+
+        .form-textarea::placeholder {
+            color: #aaa;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--color-black);
+            line-height: 1.4;
+            font-family: var(--font-main);
+        }
+
+        .form-checkbox {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            accent-color: var(--color-blue);
+            border: 2px solid var(--color-light);
+        }
+
+        .form-submit-btn {
+            background: var(--color-blue);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: var(--font-main);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-submit-btn:hover {
+            background: var(--color-burgundy);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(68, 13, 25, 0.2);
+        }
+
+        .form-submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-icon {
+            flex-shrink: 0;
+        }
+
+        .form-message {
+            display: none;
+            padding: 15px 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            animation: fadeIn 0.3s ease;
+            font-family: var(--font-main);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .form-message-success {
+            background: #e6f4ea;
+            color: var(--color-blue);
+            border: 1px solid #c6e6d2;
+        }
+
+        .form-message-error {
+            background: #f8e6e6;
+            color: var(--color-burgundy);
+            border: 1px solid #f5c6cb;
+        }
+
+        .form-message-loading {
+            background: #e6f0f4;
+            color: var(--color-blue);
+            border: 1px solid #c6e6eb;
+        }
+
+        /* Анимация для загрузки */
+        @keyframes loadingPulse {
+            0% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.6;
+            }
+        }
+
+        .form-message-loading {
+            animation: loadingPulse 1.5s infinite;
+        }
+
+        /* Адаптивность формы */
+        @media (max-width: 480px) {
+            .parts-form-section {
+                padding: 20px 15px;
+            }
+
+            .form-input,
+            .form-textarea {
+                padding: 12px 15px;
+                font-size: 0.95rem;
+            }
+
+            .form-submit-btn {
+                padding: 14px 20px;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Стили для поля телефона */
+        .phone-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .phone-prefix {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-blue);
+            font-weight: 500;
+            font-family: var(--font-main);
+            z-index: 2;
+            pointer-events: none;
+            background: #f9f9f9;
+            padding: 0 5px;
+        }
+
+        .phone-input {
+            padding-left: 70px !important;
+            /* Место для префикса */
+            width: 100%;
+        }
+
+        .input-hint {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+            font-family: var(--font-main);
+        }
+
+        /* Стили для фокуса на поле телефона */
+        .phone-input-wrapper:focus-within .phone-prefix {
+            color: var(--color-burgundy);
+            font-weight: 600;
+        }
+
+        /* Адаптивность для телефона */
+        @media (max-width: 480px) {
+            .phone-input {
+                padding-left: 60px !important;
+            }
+
+            .phone-prefix {
+                left: 12px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <div class="logo">ФАРНИР<span>АВТО</span></div>
+            <div class="header-contacts">
+                <a href="tel:+375293482240" class="phone">+375 (29) 384-22-40</a>
+                <a href="#maintainance" class="btn btn-outline" style="padding: 10px 20px;">Заказать звонок</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content animate-on-scroll">
+            <h1>МАСТЕРСТВО БЕЗ ГРАНИЦ И МАРОК</h1>
+            <p>Профессиональный ремонт и обслуживание грузовиков, тягачей, прицепов и автобусов. Надежность, проверенная
+                километрами.</p>
+            <a href="#maintainance" class="btn">Записаться на диагностику</a>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">ПЕРЕЧЕНЬ РАБОТ ФАРНИРАВТО</h2>
+
+
+
+            <div class="services-container animate-on-scroll">
+                <!-- Правая часть - вертикальные карточки (3 штуки) -->
+                <div class="service-sidebar">
+                    <!-- Карточка 4: Автобусы -->
+                    <div class="service-sidebar-item" data-service="bus">
+                        <img src="https://raw.githubusercontent.com/KarinaKuiko/farnir-auto/main/free-icon-bus-7697559.svg"
+                            class="service-sidebar-icon" alt="Ремонт и техническое обслуживание автобусов">
+                        <h3 class="service-sidebar-title">Ремонт и техническое обслуживание туристических автобусов</h3>
+                        <!-- <span class="service-sidebar-status">«Безопасные рейсы»</span> -->
+                    </div>
+
+                    <!-- Карточка 1: Двигатели и агрегаты -->
+                    <div class="service-sidebar-item" data-service="truck">
+                        <img src="https://raw.githubusercontent.com/KarinaKuiko/farnir-auto/main/container_3085349.svg"
+                            class="service-sidebar-icon" alt="Ремонт и техническое обслуживание грузовых автомобилей">
+                        <h3 class="service-sidebar-title">Ремонт и техническое обслуживание грузовых автомобилей</h3>
+                        <!-- <span class="service-sidebar-status">«Ювелирная точность»</span> -->
+                    </div>
+
+                    <!-- Карточка 2: Трансмиссия и ходовая -->
+                    <div class="service-sidebar-item" data-service="trailer">
+                        <img src="https://raw.githubusercontent.com/KarinaKuiko/farnir-auto/main/free-icon-trailer-16960978.svg"
+                            class="service-sidebar-icon"
+                            alt="Ремонт и техническое обслуживание прицепов и полуприцепов">
+                        <h3 class="service-sidebar-title">Ремонт и техническое обслуживание прицепов и полуприцепов</h3>
+                        <!-- <span class="service-sidebar-status">«Железная надежность»</span> -->
+                    </div>
+
+                    <!-- Карточка 3: Тормозная система -->
+                    <div class="service-sidebar-item" data-service="spareParts">
+                        <img src="https://raw.githubusercontent.com/KarinaKuiko/farnir-auto/main/free-icon-spare-parts-15346886.svg"
+                            class="service-sidebar-icon" alt="Продажа и установка запчастей">
+                        <h3 class="service-sidebar-title">Продажа запчастей для грузовых автомобилей и автобусов</h3>
+                        <!-- <span class="service-sidebar-status">«Точная остановка»</span> -->
+                    </div>
+
+
+                </div>
+                <!-- Левая часть - активная карточка (скрыта по умолчанию) -->
+                <div class="service-main" id="active-service">
+                    <!-- Контент будет подгружаться динамически -->
+                    <div class="service-main-header">
+                        <div class="service-main-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="service-main-title-container">
+                            <h3 class="service-main-title">Выберите услугу</h3>
+                            <!-- <span class="service-main-status">«Нажмите на карточку справа»</span> -->
+                        </div>
+                        <div class="service-main-arrow" onclick="toggleServiceCard()">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="service-main-content">
+                        <!-- Контент будет загружен из JS -->
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="trailers">
+        <div class="container">
+            <h2 class="trailers-title animate-on-scroll">ТВОЙ ПРИЦЕП — ТВОЯ ПРИБЫЛЬ.<br>ДЕРЖИ ЕГО В СТРОЮ.</h2>
+
+            <div class="trailers-content animate-on-scroll">
+
+                <div class="col-left">
+                    <div class="trailer-group">
+                        <div class="trailer-head">
+                            ОСИ (Schmitz, SAF, BPW)
+                            <span>«Ровный ход — целые шины»</span>
+                        </div>
+                        <ul class="trailer-list">
+                            <li>Восстанавливаем геометрию и надежность качения.</li>
+                            <li>Восстановление рам и осей: Устраняем трещины и перекосы, возвращаем соосность.</li>
+                        </ul>
+                    </div>
+
+                    <div class="trailer-group">
+                        <div class="trailer-head">
+                            ПНЕВМАТИКА
+                            <span>«Груз под защитой воздуха»</span>
+                        </div>
+                        <ul class="trailer-list">
+                            <li>Обслуживание пневмоподвески: Плавный ход груза даже по разбитым дорогам.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-right">
+                    <div class="trailer-group">
+                        <div class="trailer-head">
+                            ТОРМОЗНАЯ СИСТЕМА
+                            <span>«Остановка по первому требованию»</span>
+                        </div>
+                        <ul class="trailer-list">
+                            <li>Синхронная работа с тягачом — залог безопасного спуска.</li>
+                            <li>Ремонт суппортов и замена колодок: Уверенное торможение без перегревов.</li>
+                        </ul>
+                    </div>
+
+                    <div class="trailer-group">
+                        <div class="trailer-head">
+                            ЭЛЕКТРИКА И ОСВЕЩЕНИЕ
+                            <span>«Видимость в любую погоду»</span>
+                        </div>
+                        <ul class="trailer-list">
+                            <li>Чтобы каждый габарит горел ярко в любой туман.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section> -->
+
+    <section id="maintainance" class="cta-section">
+        <div class="container animate-on-scroll">
+            <h2 style="color:var(--color-blue); margin-bottom: 20px;">ЗАПИСАТЬСЯ НА РЕМОНТ</h2>
+            <p style="margin-bottom: 30px; color: #666;">Оставьте заявку, и мастер свяжется с вами для уточнения
+                деталей.</p>
+
+            <form class="cta-form">
+                <input type="text" class="form-input" placeholder="Ваше Имя" required>
+                <input type="tel" class="form-input" placeholder="Номер телефона" required>
+                <input type="text" class="form-input" placeholder="Марка техники / Суть проблемы">
+                <button type="submit" class="btn">ОТПРАВИТЬ ЗАЯВКУ</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="vacancies-section" id="vacancies">
+        <div class="container">
+            <h2 class="vacancies-title">Вакансии</h2>
+            <div class="vacancies-wrapper">
+                <div class="vacancies-grid" id="vacancies-container">
+                    <!-- Вакансии будут загружаться динамически через JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="margin-bottom: 20px;">ФАРНИР<span>АВТО</span></div>
+                    <p style="color: #aaa;">Мастерство без границ и марок. Комплексный ремонт коммерческого транспорта.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>КОНТАКТЫ</h4>
+                    <ul class="footer-contacts">
+                        <li><i class="fas fa-map-marker-alt"></i> г. Минск, ул. Бабушкина, д. 6</li>
+                        <li><i class="fas fa-phone"></i><a href="tel:+375293482240"> +375 (29) 384-22-40</a></li>
+                        <li><i class="fas fa-envelope"></i><a href="mailto:farnirauto@gmail.com">
+                                farnirauto@gmail.com</a></li>
+                        <li><i class="fas fa-clock"></i> Пн-Пт: 09:00 - 18:00</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>МЫ НА КАРТЕ</h4>
+                    <div class="map-container">
+                        <iframe
+                            src="https://yandex.ru/map-widget/v1/?um=constructor%3A844fe1e6d1f737d7212491fcb238f10f3b8fb1891324eb21318341fd8e61d248&amp;source=constructor"
+                            width="100%" height="250" frameborder="0"></iframe>
+                    </div>
+                    <p style="color: #aaa; font-size: 0.8rem; margin-top: 10px;">*Для построения маршрута нажмите на
+                        карту.</p>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2026 ФарнирАвто. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Анимируем только один раз
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    </script>
+    <script>
+        // Данные для карточек
+        const servicesData = {
+             truck: {
+                title: "Ремонт и техническое обслуживание грузовых автомобилей",
+                status: "",
+                icon: "https://raw.githubusercontent.com/KarinaKuiko/farnir-auto/main/container_3085349.svg",
+                description: "Комплексные услуги по техническому обслуживанию и текущему ремонту грузовых автомобилей и тягачей европейских, китайских и отечественных производителей.",
+                details: [
+                    "Диагностика, ремонт и техническое обслуживание двигателей <b>MAN, Mercedes, Volvo, Scania, DAF, Iveco, Renault, Izusu, Sitrak, Shacman, DongFeng, SANY, Foton, HOWO, МАЗ, Камаз, ЯМЗ, Cummins, Perkins, Detroit, Cat</b>",
+                    "Диагностика, ремонт и техническое обслуживание системы охлаждения",
+                    "Диагностика и ремонт системы отработавших газов",
+                    "Диагностика, ремонт и техническое обслуживание КПП <b>Volvo, Mercedes-Benz, Iveco, ZF, Shaft-gear, Shanxi fast gear, ЯМЗ</b>, а также редукторов ведущих мостов, карданных валов",
+                    "Ремонт и техническое обслуживание тормозной системы: ремонт тормозных валов, проточка барабанов, ремонт суппортов, замена колодок, замена тормозных дисков",
+                    "Ремонт и техническое обслуживание, смазка седельно-сцепных и тягово-сцепных устройств",
+                    "Диагностика и ремонт рулевого управления: замена рулевых наконечников, рулевых тяг, рулевых редукторов, насосов ГУР",
+                    "Диагностика, ремонт и техническое обслуживание ходовой части: замена ступичных подшипников, замена стабилизаторов, балансиров, реактивных штанг, ремонт и замена шкворневых узлов, замена рессор",
+                    "Ремонт подвески кабины: замена стабилизаторов, пневмоамортизаторов, ремонт механизма подъема кабины, ремонт пневмооборудования и компрессоров",
+                    "Диагностика, ремонт и техническое обслуживание электрооборудования и световых приборов",
+                    "Сварочные работы"
+                ],
+                brands: null
+            },
+            trailer: {
+                title: "Ремонт и техническое обслуживание прицепов и полуприцепов",
+                status: "",
+                icon: "https://raw.githubusercontent.com/KarinaKuiko/farnir-auto/main/free-icon-trailer-16960978.svg",
+                description: "Широкий спектр услуг по ремонту и техническому обслуживанию прицепов и полуприцепов всех типов.",
+                details: [
+                    "Диагностика, ремонт и обслуживание прицепов и полуприцепов <b>Schmitz, Kögel, Krone, Koluman, Wielton. Работаем с осями SAF, BPW, JOST, Gigant, ROR, Knott, ТОНАР</b>",
+                    "Диагностика и ремонт тормозной системы",
+                    "Ремонт пневмосистем",
+                    "Ремонт и техническое обслуживание тягово-седельных и тягово-сцепных устройств",
+                    "Диагностика и ремонт электронных систем и световых приборов"
+                ],
+                brands: null
+            },
+            spareParts: {
+                title: "Продажа запчастей для грузовых автомобилей и автобусов",
+                status: "",
+                icon: "https://raw.githubusercontent.com/KarinaKuiko/farnir-auto/main/free-icon-spare-parts-15346886.svg",
+                description: "ООО «Фарниравто» предлагает широкий ассортимент оригинальных запчастей для грузовых автомобилей, автобусов и прицепов. Гарантированное качество от официальных поставщиков, полный ассортимент для европейских, китайских и отечественных марок.",
+                showForm: true,
+                details: null,
+                // [
+                //     "Обслуживание суппортов: тормоза, на которые можно положиться",
+                //     "Ремонт пневмосистем: полная герметичность — воздух работает на вас",
+                //     "Диагностика ABS/EBS: электронный контроль вашей безопасности",
+                //     "Замена тормозных колодок и дисков",
+                //     "Проточка тормозных барабанов"
+                // ],
+                brands: null
+            },
+            bus: {
+                title: "Техническое обслуживание и текущий ремонт туристических автобусов",
+                status: "",
+                icon: "https://raw.githubusercontent.com/KarinaKuiko/farnir-auto/main/free-icon-bus-7697559.svg",
+                description: "Широкий спектр услуг по техническому обслуживанию и ремонту пригородных, междугородних и туристических автобусов европейских, китайских и отечественных производителей.",
+                details: [
+                    "Диагностика, техническое обслуживание и ремонт двигателей автобусов <b>MAN, Neoplan, Setra, Mercedes-Benz, Scania, Volvo, Higer, Zhongtong, Ankai, МАЗ</b>. Замена двигателя",
+                    "Диагностика, техническое обслуживание и ремонт КПП автобусов <b>MAN,Neoplan,Setra, Mercedes-Benz, Scania, Volvo, Higer, Zhongtong, Ankai, Yutong, МАЗ</b>. Замена КПП, регулировка механизма переключения КПП, замена тросов переключения КПП. Замена сцепления, диагностика и ремонт пневмогидропривода выключения сцепления. Замена ПГУ, подпедального цилиндра, прокачка пневмогидропривода сцепления. Замена и регулировка ретардера <b>Telma</b>",
+                    "Диагностика, техническое обслуживание и ремонт редуктора заднего моста автобусов, ремонт карданного вала, замена крестовин карданного вала, балансировка карданного вала",
+                    "Диагностика, техническое обслуживание и ремонт системы охлаждения автобусов. Замена радиатора системы охлаждения, патрубков системы охлаждения, ремонт радиаторов системы охлаждения",
+                    "Диагностика и ремонт системы выпуска отработавших газов. Замена и ремонт глушителя",
+                    "Диагностика, техническое обслуживание и ремонт ходовой части автобусов. Замена шкворней, ступичных подшипников, втулок стабилизатора подсветки, восстановление стабилизатора подвести. Замена пневморессоры, амортизаторов, реактивных штанг, восстановление реактивных штанг. Замена амортизаторов и сайлентблоков",
+                    "Диагностика, ремонт и техническое обслуживание рулевого управления: замена и ремонт рулевого механизма, угловых редукторов, карданных валов привода рулевого управления, наконечников рулевых тяг, гидравлических шлангов привода рулевого управления",
+                    "Диагностика и ремонт тормозной системы автобусов: замена тормозных колодок дискового и барабанного тормоза, тормозных дисков, тормозных барабанов, ремкомплекта тормозного вала. Ремонт суппортов, пневматической системы привода тормозов. Проточка тормозных барабанов, диагностика и ремонт ABS",
+                    "Диагностика электронных систем управления автобусов, ремонт электрооборудования"
+
+                ],
+                brands: null
+                //  ["Higer", "Youtong", "Zhong Tong", "MAN", "Volvo", "Scania", "Mercedes", 
+                //          "DAF", "Iveco", "Renault", "Setra", "Neoplan"]
+            }
+        };
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function () {
+            const activeService = document.getElementById('active-service');
+            const sidebarItems = document.querySelectorAll('.service-sidebar-item');
+            let currentService = null;
+
+            // Функция переключения карточки (открытие/закрытие)
+            function toggleServiceCard() {
+                if (activeService.classList.contains('active')) {
+                    // Закрываем карточку
+                    activeService.classList.remove('active');
+                    activeService.querySelector('.service-main-content').style.maxHeight = null;
+
+                    // Снимаем активность с сайдбара
+                    sidebarItems.forEach(item => item.classList.remove('active'));
+                    currentService = null;
+                } else {
+                    // Если есть текущая услуга, открываем её
+                    if (currentService) {
+                        activeService.classList.add('active');
+                        const contentEl = activeService.querySelector('.service-main-content');
+                        contentEl.style.maxHeight = contentEl.scrollHeight + "px";
+                    }
+                }
+            }
+
+            // Функция загрузки услуги
+            function loadService(serviceId) {
+                const service = servicesData[serviceId];
+                if (!service) return;
+
+                currentService = serviceId;
+
+                // Обновляем заголовок
+                const header = activeService.querySelector('.service-main-header');
+                header.querySelector('.service-main-icon').innerHTML =
+                    service.icon.startsWith('http') ?
+                        `<img src="${service.icon}" class="service-main-icon" alt="${service.title}">` :
+                        `<i class="${service.icon} service-main-icon" style="font-size: 3rem;"></i>`;
+                header.querySelector('.service-main-title').textContent = service.title;
+                // header.querySelector('.service-main-status').textContent = service.status;
+
+                // Обновляем контент
+                const content = activeService.querySelector('.service-main-content');
+                let html = `
+            <p class="service-description">${service.description}</p>
+            ${service.details && service.details.length > 0 ? `
+            <div class="service-details">
+                <div class="details-title">Перечень услуг:</div>
+                <div class="details-list">
+                    ${service.details.map(item => `<div class="detail-item">${item}</div>`).join('')}
+                </div>
+            </div>
+        ` : ''}`;
+
+                // Добавляем форму для продажи запчастей
+                if (serviceId === 'spareParts' && service.showForm) {
+                    html += `
+        <div class="parts-form-section">
+            <div class="form-title">Запрос на подбор запчастей</div>
+            <p class="form-description">Заполните форму, и наши специалисты подберут нужные запчасти и свяжутся с вами</p>
+            
+            <form id="parts-form" class="parts-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Ваше имя</label>
+                        <input type="text" id="name" name="name" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон</label>
+                        <div class="phone-input-wrapper">
+                    <span class="phone-prefix">+375</span>
+                    <input type="tel" id="phone" name="phone" required 
+                           class="form-input phone-input"
+                           title="Формат: (29) 123-45-67">
+                </div>
+                <div class="input-hint">Формат: (29) 123-45-67</div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="brand">Марка ТС</label>
+                        <input type="text" id="brand" name="brand" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="vin">VIN номер</label>
+                        <input type="text" id="vin" name="vin" required class="form-input">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="parts">Необходимые запчасти</label>
+                    <textarea id="parts" name="parts" required 
+                              class="form-textarea" rows="4"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="agreement" required class="form-checkbox">
+                        <span>Я согласен на обработку персональных данных</span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="form-submit-btn">
+                    Отправить запрос
+                    
+                </button>
+            </form>
+            
+            <div id="form-message" class="form-message"></div>
+        </div>
+        `;
+                }
+
+                // Добавляем бренды если есть
+                if (service.brands && service.brands.length > 0) {
+                    html += `
+                <div class="brands-section">
+                    <div class="brands-title">Работаем с марками:</div>
+                    <div class="brands-tag-container">
+                        ${service.brands.map(brand => `<span class="brand-tag">${brand}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+                }
+
+                content.innerHTML = html;
+
+                // Активируем карточку
+                activeService.classList.add('active');
+                const contentEl = activeService.querySelector('.service-main-content');
+                contentEl.style.maxHeight = contentEl.scrollHeight + "px";
+
+                // Обновляем активный элемент в сайдбаре
+                sidebarItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.dataset.service === serviceId) {
+                        item.classList.add('active');
+                    }
+                });
+
+                // На мобильных скроллим к активной карточке
+                if (window.innerWidth < 1100) {
+                    activeService.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+
+            // Обработчики кликов на сайдбар
+            sidebarItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const serviceId = this.dataset.service;
+
+                    // Если кликаем по уже активной - закрываем
+                    if (currentService === serviceId && activeService.classList.contains('active')) {
+                        toggleServiceCard();
+                    } else {
+                        // Загружаем новую услугу
+                        loadService(serviceId);
+                    }
+                });
+            });
+
+            // Закрытие по клику вне
+            document.addEventListener('click', function (e) {
+                // Не закрываем, если клик был по стрелочке (она обрабатывается отдельно)
+                if (!e.target.closest('.service-main') &&
+                    !e.target.closest('.service-sidebar-item') &&
+                    !e.target.closest('.service-main-arrow')) {
+                    activeService.classList.remove('active');
+                    activeService.querySelector('.service-main-content').style.maxHeight = null;
+                    sidebarItems.forEach(item => item.classList.remove('active'));
+                    currentService = null;
+                }
+            });
+
+            // Анимация по скроллу
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+            // Автоматически загружаем первую услугу при загрузке (опционально)
+            loadService('bus');
+        });
+
+        // Глобальная функция для стрелочки (чтобы работал onclick)
+        window.toggleServiceCard = function () {
+            const activeService = document.getElementById('active-service');
+            const sidebarItems = document.querySelectorAll('.service-sidebar-item');
+
+            if (activeService.classList.contains('active')) {
+                // Закрываем карточку
+                activeService.classList.remove('active');
+                activeService.querySelector('.service-main-content').style.maxHeight = null;
+
+                // Снимаем активность с сайдбара
+                sidebarItems.forEach(item => item.classList.remove('active'));
+
+                // Находим текущий активный элемент сайдбара и снимаем с него активность
+                const activeSidebarItem = document.querySelector('.service-sidebar-item.active');
+                if (activeSidebarItem) {
+                    activeSidebarItem.classList.remove('active');
+                }
+            } else {
+                // Открываем карточку (если есть текущая услуга)
+                const contentEl = activeService.querySelector('.service-main-content');
+                if (contentEl.innerHTML.trim() !== '') {
+                    activeService.classList.add('active');
+                    contentEl.style.maxHeight = contentEl.scrollHeight + "px";
+                }
+            }
+        };
+    </script>
+    <script>
+        // Данные для вакансий
+        const vacanciesData = [
+            // {
+            //     id: 1,
+            //     title: "Слесарь по ремонту автомобилей",
+            //     salary: "от 2 500 до 4 500 руб.",
+            //     experience: "от 1 года",
+            //     responsibilities: "Диагностика и ремонт грузовых автомобилей, ТО двигателей и КПП",
+            //     requirements: "Образование, опыт с грузовой техникой, ответственность",
+            //     employment: "Полная занятость",
+            //     isActive: true
+            // },
+            // {
+            //     id: 2,
+            //     title: "Электрик-автомеханик",
+            //     salary: "от 2 800 до 4 200 руб.",
+            //     experience: "от 2 лет",
+            //     responsibilities: "Ремонт электрооборудования, диагностика бортовых сетей",
+            //     requirements: "Образование техник-электрик, знание автоэлектрики",
+            //     employment: "Полная занятость",
+            //     isActive: true
+            // },
+            // {
+            //     id: 3,
+            //     title: "Мастер-приемщик",
+            //     salary: "от 2 000 руб. + бонусы",
+            //     experience: "от 6 месяцев",
+            //     responsibilities: "Прием авто в ремонт, консультирование, составление заказ-нарядов",
+            //     requirements: "Коммуникабельность, знание основ автоустройства",
+            //     employment: "Сменный график",
+            //     isActive: true
+            // },
+            // {
+            //     id: 4,
+            //     title: "Менеджер по продажам запчастей",
+            //     salary: "от 1 800 руб. + %",
+            //     experience: "от 1 года",
+            //     responsibilities: "Подбор и продажа запчастей, работа с клиентами",
+            //     requirements: "Опыт продаж в автобизнесе, знание ассортимента",
+            //     employment: "Полная занятость",
+            //     isActive: true
+            // },
+            // {
+            //     id: 5,
+            //     title: "Сварщик",
+            //     salary: "от 3 000 руб.",
+            //     experience: "от 2 лет",
+            //     responsibilities: "Сварочные работы по кузову, ремонт рам, конструкций",
+            //     requirements: "Разряд не ниже 4, опыт работы с автотехникой",
+            //     employment: "Полная занятость",
+            //     isActive: true
+            // },
+            // {
+            //     id: 6,
+            //     title: "Механик по ТО",
+            //     salary: "от 2 300 руб.",
+            //     experience: "от 1 года",
+            //     responsibilities: "Плановое ТО, замена расходников, диагностика",
+            //     requirements: "Знание технического регламента ТО, внимательность",
+            //     employment: "Полная занятость",
+            //     isActive: false  // Неактивная вакансия
+            // }
+        ];
+
+        // Функция загрузки вакансий
+        function loadVacancies() {
+            const container = document.getElementById('vacancies-container');
+            if (!container) return;
+
+            // Проверяем активные вакансии
+            const activeVacancies = vacanciesData.filter(v => v.isActive);
+
+            if (activeVacancies.length === 0) {
+                container.innerHTML = `
+            <div class="no-vacancies">
+                <svg class="vacancy-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <h3>Свободных вакансий нет</h3>
+                <p>Вы можете отправить резюме на будущее</p>
+                <p class="contact-email"><a href="mailto:farnirauto@gmail.com">
+                                farnirauto@gmail.com</a></p>
+            </div>
+        `;
+                return;
+            }
+
+            // Генерируем карточки
+            const vacanciesHTML = activeVacancies.map(vacancy => `
+        <div class="vacancy-card" data-id="${vacancy.id}">
+            <div class="vacancy-card-header">
+                <h3 class="vacancy-name">${vacancy.title}</h3>
+                <div class="vacancy-salary">${vacancy.salary}</div>
+            </div>
+            
+            <div class="vacancy-card-body">
+                <div class="vacancy-info-row">
+                    <span class="info-label">
+                        <svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Опыт:
+                    </span>
+                    <span class="info-value">${vacancy.experience}</span>
+                </div>
+                
+                <div class="vacancy-info-row">
+                    <span class="info-label">
+                        <svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                        </svg>
+                        Занятость:
+                    </span>
+                    <span class="info-value">${vacancy.employment}</span>
+                </div>
+                
+                <div class="vacancy-details">
+                    <div class="detail-section">
+                        <h4 class="detail-title">Обязанности:</h4>
+                        <p class="detail-text">${vacancy.responsibilities}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4 class="detail-title">Требования:</h4>
+                        <p class="detail-text">${vacancy.requirements}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+            container.innerHTML = vacanciesHTML;
+        }
+
+        // Загрузка при готовности DOM
+        document.addEventListener('DOMContentLoaded', loadVacancies);
+    </script>
+</body>
+
+</html>
